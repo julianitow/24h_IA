@@ -1,9 +1,10 @@
+package tt;
 
-public class personnage {
+public class Mur {
 	public int x;
 	public int y;
-
-	public void Personnage(int nx, int ny){
+	
+	Mur(int nx, int ny){
 		this.x = nx;
 		this.y = ny;
 	}
