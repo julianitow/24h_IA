@@ -3,6 +3,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class Client {
 
@@ -41,11 +42,11 @@ public class Client {
 	
 	public void send(String cmd) {
 		try {
-			this.os.writeUTF(cmd);
-			this.os.flush();
+			this.os.writeUTF(cmd  + "\n");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			this.close();
 		}
 	}
 	
@@ -55,6 +56,7 @@ public class Client {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.exit(120);
 		}
 		return null;
 	}
@@ -62,6 +64,8 @@ public class Client {
 	public void close() {
 		try {
 			this.socket.close();
+			this.os.close();
+			this.in.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

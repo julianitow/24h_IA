@@ -1,9 +1,12 @@
+import java.io.IOException;
+
 public class ClientTest {
 
-	public static void main(String[] args)
+	public static void main(String[] args) throws IOException
 	{
 		String nom = "Companeros";
 		Client client = new Client();
+		boolean cont = true;
 		
 		if (args.length == 1) {
 			client = new Client(args[0]);
@@ -15,15 +18,20 @@ public class ClientTest {
 		
 		client.send(nom);
 		
-		while(client.isConnected())
+		while(cont)
 		{
 			String l_serveur_Return = client.read();
 			System.out.println(l_serveur_Return + "\n");
 			//Algo de prise de décisions
-			client.send("S-E-S\n");
+			client.send("S-E-S");
+			if (!client.isConnected())
+			{
+				cont = false;
+			}
 		}
 
 		client.close();
+		
 	}
 	
 }
